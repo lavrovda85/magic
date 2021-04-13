@@ -6,13 +6,13 @@ class Controller {
         static function run() {
                 require("wizard.php"); // Сущность мага
                 require("sabbath.php");  // Колдунство
-                require("keeper.php");  // Писарчук. Прикрытие для $_SESSION 
+                require("keeper.php");  // Начальник. Прикрытие для $_SESSION 
                 session_start();
                 $instance = new Controller();
                 $instance->handleRequest();
         }
 
-        function handleRequest() {
+        function handleRequest() { // Загрузка
                 
                 $request = new ControllerRequest();  //Парсер запросов. Прикрытие для $_SERVER    
                 $cmd_r   = new CommandResolver(); // Обработчик комманд
@@ -26,17 +26,17 @@ class CommandResolver {
         private static $default_cmd;
 
         function __construct() {
-                if (!self::$base_cmd) {
+                if (!self::$base_cmd) { // Это если дверью ошиблись
                         self::$base_cmd  = new ReflectionClass("Command");
-                        require("client.php");
+                        require("client.php"); // По совместительству передает клинтскую оюолочку
                         self::$default_cmd = new client();
                 }
         }
-        function getCommand(ControllerRequest $request) {
+        function getCommand(ControllerRequest $request) {  
                 $cmd = $request->getProperty('cmd');
                 $sep = DIRECTORY_SEPARATOR;
                 if (!$cmd) {
-                        
+                                                // Фабрика со складом 
                         return self::$default_cmd;
                 }
                 $cmd=str_replace(array('.',$sep),"",$cmd);
@@ -56,7 +56,7 @@ class CommandResolver {
         }
 }
 
-class ControllerRequest {
+class ControllerRequest { // Транспорт. За 5 сек переделывается под любую дарогу, и колдуны даже ниче не заметят
         
         private $properties;
 
@@ -78,7 +78,7 @@ class ControllerRequest {
     
 }
 
-abstract class Command {
+abstract class Command {   // Прототип среды выполнения бизнес логики
 
 
         function __construct()
