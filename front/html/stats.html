@@ -1,0 +1,21 @@
+
+    <! -- СТАТИСТИКА КАЛДУНСТВА  -->
+
+	<div class="row" >
+		<div class="col-md-12">
+			<h3 class="text-center mb-4">
+					Результаты всех попыток и рейтинг колдунов
+			</h3>
+		</div>
+	</div>
+	<table class="table table-striped table-hover" >
+			<tbody>
+				<! -- ВЫВОД ОБЬЕКТОВ В ЦИКЛЕ  -->
+				<tr  ng-repeat="statsRow in Stats">
+					<td ng-repeat="statsCol in statsRow">
+						<p class="text-success">{{statsCol}}</p>
+					</td>		
+	            </tr>
+			</tbody>
+	</table>
+

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" ng-app="sabbath" ng-controller="front">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+	<meta name="description" content="Порча сглаз лечение бородавок">
+	<title>ШАБАШ</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+	<! -- ФРЕЙМВОРК СТИЛЕЙ  -->
+    <link rel="stylesheet" href="./front/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./front/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="./front/css/bootstrap-reboot.min.css">
+	<! -- СТИЛИ ИКОНОК  -->
+    <link rel="stylesheet" href="./front/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./front/css/font-awesome.min.css">
+  	<! -- ОСНОВНЫЕ СТИЛИ -->
+   
+ 
+   
+	<! -- БИБЛИОТЕКИ И ФРЕЙВОРКИ  -->
+    <script src="./front/script/jquery.min.js"></script>
+    <script src="./front/script/popper.js"></script>
+	<script src="./front/script/angular.min.js"></script>
+	<script src="./front/script/angular-animate.min.js"></script>
+	<script src="./front/script/bootstrap.min.js"></script>
+	<script src="./front/script/bootstrap.bundle.min.js"></script>
+	<script src="./front/script/fontawesome.min.js"></script>
+	<! -- ВОТ ТУТ ВСЯ МАГИЯ  -->
+	<script src="./front/script/front.js"></script>
+
+</head>
+<body>
+	<header id="page-topbar"  class="d-flex justify-content-center">
+		<H1>Остановись дорогой позолоти ручку число загадай судьбу свою узнай</H1>
+	</header>
+	<div class="container-fluid" >
+
+		<div class="row">
+		    <div class="col-md-12">
+		    	<! -- СЮДА ВСТАВЛЯЮТСЯ СТРАНИЦЫ ИЗ front/html  --> 
+		        <ng-include src="setTemplate()"></ng-include>
+		    </div>
+	    </div>  
+
+	    <div class="row" >
+		<div class="col-md-12">
+			<h3 class="text-center mb-4">
+					Результаты всех попыток и рейтинг колдунов 
+			</h3>
+		</div>
+	</div>
+	<table class="table table-striped table-hover" >
+			<tbody>
+				<! -- ВЫВОД ОБЬЕКТОВ В ЦИКЛЕ  -->
+				<tr  ng-cloak ng-repeat="statsRow in Stats">
+
+					<td  ng-cloak ng-repeat="statsCol in statsRow">
+						<p class="text-success">{{statsCol.col}}</p>
+					</td>		
+	            </tr>
+			</tbody>
+	</table>
+
+	</div>
+</body>
+</html>
