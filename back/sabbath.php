@@ -1,27 +1,36 @@
 <?php
 
-class Sabbath {
+class Sabbath { // Класс реализиут непосредственно битву )) колективное угадывание числа простым рандомом. Щас 8 человек всего так что придется потдаватся. Но если понадобится 5 сек допилить редактор волебников.
 
-	private  $Wizards  = array();
-	private  $TrueNumbers =array();
+	private  $Wizards  = array(); // Хранилище магов
+	private  $TrueNumbers =array(); // Хранилище загаданных чисел
 
 	function __construct() {
 
-	 	$this->Wizards[] = new Wizard('Дэвид Коперфильд');
-	 	$this->Wizards[] = new Wizard('Амаяк Акапян');
-	 	$this->Wizards[] = new Wizard('Дэвид Блэйн');
-	 	$this->Wizards[] = new Wizard('Гарри Гуддини');
-	 	$this->Wizards[] = new Wizard('Сын мамкиной подруги');
-	 	$this->Wizards[] = new Wizard('Первый Встречный');
-	 	$this->Wizards[] = new Wizard('Гудков');
+	 	$Names = ['Дэвид Коперфильд',
+					'Амаяк Акапян',
+					'Дэвид Блэйн',
+					'Гарри Гуддини',
+					'Сын мамкиной подруги',
+					'Первый Встречный',
+					'Гудков'	
+				];
 
+		foreach ($Names as $Name ) {
+			$this->addWizard($name);
+		}
 	 }
-	 public function setTrueNumber($num) {  // Передеть загананное число число
+	public function addWizard($name) { // Добавить мага
+
+				$this->Wizards[] = new Wizard($name);
+	}	
+
+	 public function setTrueNumber($num) {  // Передеть загаданное число
 	 		$this->TrueNumbers[] = $num;
-	 		$this->guessCheck();
+	 		$this->guessCheckAll();
 	 }
 
-	 public function guessCheck() {    //  Проверить все последние предсказания
+	 private function guessCheckAll() {    //  Проверить все последние предсказания
 
 	 	for ($i=0;$i<=Count($this->Wizards)-1;$i++) {
 
@@ -29,7 +38,7 @@ class Sabbath {
 	 	}
 
 	 }
-	 public function guessAll() {    // Предсказать чтонибудь всем волшебникам
+	 private function guessAll() {    // Предсказать чтонибудь всем волшебникам
 
 	 	for ($i=0;$i<=Count($this->Wizards)-1;$i++) {
 
@@ -40,8 +49,6 @@ class Sabbath {
 
 	 	$this->guessAll();
 	 	$arrayResult = array();
-	 	//echo Count($this->Wizards);
-	 	//var_dump($this);
 
 	 	for ($i=0;$i<=Count($this->Wizards)-1;$i++) {
 
@@ -50,25 +57,25 @@ class Sabbath {
 	 	return $arrayResult;
 	 }
 
-	 public function getAllResult() { // Получить вообще все  предсказания вместе с загаданным числом
+	 public function getAllResult() { // Получить вообще все  предсказания вместе с загаданными числами
 
-
-	 	$result[0][0] = array('col'=> "Загадали число");
+	 	Function toColumn($str) { // Json Любит с ключиками
+	 		return  array('col'=> $str);
+	 	}
+	 	$result[0][0] =  toColumn("Загаданное число");
 
 	 	for ($i=0;$i<=Count($this->Wizards)-1;$i++) {
-
-	 		$result[0][$i+1] = array('col'=> $this->Wizards[$i]->getName(). '(' . $this->Wizards[$i]->getRating() . ')' );
-	 		
+	 							// Таблица рисуется по китайски сверху вниз 
+	 		$result[0][$i+1] = toColumn($this->Wizards[$i]->getName(). ' ур.(' . $this->Wizards[$i]->getRating() . ')' );  
+	 							// Во внешнем цыкле заголовки в внутринеем столбцы к ним
 	 		for ($j=0;$j<=Count($this->TrueNumbers)-1;$j++) {
 
-	 			//var_dump($this->Wizards[$i]->seasons);
-	 			$result[$j+1][0] = array('col'=> $this->TrueNumbers[$j] );
-	 			$result[$j+1][$i+1] = array('col'=> $this->Wizards[$i]->seasons[$j] );
-	 			
+	 			$result[$j+1][0] = toColumn($this->TrueNumbers[$j]);
+	 			$result[$j+1][$i+1] = toColumn( $this->Wizards[$i]->seasons[$j] ); 			
 	 		}
 	 	}
-	 	foreach ($result as $res) {
-	 		$res_json[] = json_encode( $res);
+	 	foreach ($result as $res) {   // Еще раз взболтать
+	 		$res_json[] = json_encode($res);
 	 	}
 	 	return $res_json;
 	}
